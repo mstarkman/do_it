@@ -1,0 +1,8 @@
+<li class="<%= task.complete? ? 'completed' : 'view' %>">
+  <div class="view">
+    <%= check_box_tag 'complete', "1", task.complete?, class: 'toggle' %>
+    <label><%= task.body %></label>
+    <button class="destroy"></button>
+  </div>
+  <input class="edit" value="<%= task.body %>">
+</li>
