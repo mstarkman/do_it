@@ -8,9 +8,13 @@ class TasksController < ApplicationController
     task = Task.create!(task_params)
 
     respond_to do |format|
-      # format.turbo_stream { render turbo_stream: turbo_stream.prepend(:tasks, task) }
       format.html { redirect_to root_url }
     end
+  end
+
+  def update
+    task = Task.find(params[:id])
+    task.update!(task_params)
   end
 
   def destroy
@@ -26,6 +30,12 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:body)
+    p = params.require(:task).permit(:body, :complete)
+
+    if p.has_key?(:complete)
+      p[:complete] = p[:complete] == "1"
+    end
+
+    p
   end
 end
