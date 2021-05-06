@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "new-task-form" do %>
+  <%= form_with model: Task.new do |f| %>
+    <%= f.text_field :body, class: "new-todo", placeholder: "What needs to be done?", autofocus: true %>
+  <% end %>
+<% end %>

@@ -1,15 +1,14 @@
 <section class="todoapp">
   <header class="header">
     <h1>todos</h1>
-    <input class="new-todo" placeholder="What needs to be done?" autofocus="">
+    <%= render partial: "form" %>
   </header>
   <section class="main" style="display: block;">
     <input class="toggle-all" id="toggle-all" type="checkbox">
     <label for="toggle-all">Mark all as complete</label>
-    <ul class="todo-list">
-      <% @tasks.each do |task| %>
-        <%= render task %>
-      <% end %>
+    <ul class="todo-list" id="tasks">
+      <%= turbo_stream_from "tasks" %>
+      <%= render partial: "tasks/task", collection: @tasks %>
       <li class="completed">
         <div class="view">
           <input class="toggle" type="checkbox" checked="">
