@@ -1,11 +1,10 @@
-<li class="<%= task.complete? ? 'completed' : 'view' %>" id="<%= dom_id task %>">
-  <div class="view">
-    <%= form_with model: task, data: { controller: 'auto-submit' } do |f| %>
-      <%= f.check_box :complete, { class: 'toggle', data: { action: 'change->auto-submit#submit' }, id: "#{dom_id task}_complete" } %>
+<%= turbo_frame_tag dom_id(task) do %>
+  <li class="<%= task.complete? ? 'completed' : 'view' %>">
+    <div class="view">
+      <%= button_to task_complete_index_path(task, task: { complete: task.complete? ? '0' : '1' }), method: :post, form_class: "toggle #{task.complete? ? 'complete' : ''}" do %><% end %>
       <label><%= task.body %></label>
-    <% end %>
-    <%= button_to task_path(task), method: :delete, remote: true, class: "destroy" do %>
-    <% end %>
-  </div>
-  <input class="edit" value="<%= task.body %>">
-</li>
+      <%= button_to task_path(task), method: :delete, class: "destroy" do %><% end %>
+    </div>
+    <input class="edit" value="<%= task.body %>">
+  </li>
+<% end %>

@@ -1,41 +1,36 @@
 class TasksController < ApplicationController
-  layout false, only: [:create]
+  before_action :set_task, only: [:show, :update, :destroy]
+
   def index
     @tasks = Task.all.order(created_at: :desc)
   end
 
-  def create
-    task = Task.create!(task_params)
+  def show
+  end
 
-    respond_to do |format|
-      format.html { redirect_to root_url }
-    end
+  def create
+    @task = Task.create!(task_params)
+
+    redirect_to root_url
   end
 
   def update
-    task = Task.find(params[:id])
-    task.update!(task_params)
+    @task.update!(task_params)
+
+    redirect_to @task
   end
 
   def destroy
-    task = Task.find(params[:id])
-    task.destroy!
-
-    respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(task) }
-      format.html         { redirect_to root_url }
-    end
+    @task.destroy!
   end
 
   private
 
   def task_params
-    p = params.require(:task).permit(:body, :complete)
+    params.require(:task).permit(:body)
+  end
 
-    if p.has_key?(:complete)
-      p[:complete] = p[:complete] == "1"
-    end
-
-    p
+  def set_task
+    @task = Task.find(params[:id])
   end
 end

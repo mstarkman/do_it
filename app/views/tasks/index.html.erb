@@ -6,41 +6,19 @@
   <section class="main" style="display: block;">
     <input class="toggle-all" id="toggle-all" type="checkbox">
     <label for="toggle-all">Mark all as complete</label>
-    <ul class="todo-list" id="tasks">
-      <%= turbo_stream_from "tasks" %>
-      <%= render partial: "tasks/task", collection: @tasks %>
-      <li class="completed">
-        <div class="view">
-          <input class="toggle" type="checkbox" checked="">
-          <label>These are just samples!!!</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit" value="asdfasdf">
-      </li>
-      <li>
-        <div class="view">
-          <input class="toggle" type="checkbox">
-          <label>asdf</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit" value="asdf">
-      </li>
-      <li>
-        <div class="view">
-          <input class="toggle" type="checkbox">
-          <label>asdf</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit" value="asdf">
-      </li>
-      <li>
-        <div class="view">
-          <input class="toggle" type="checkbox">
-          <label>asddf</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit" value="asddf">
-      </li>
+    <%= turbo_stream_from "tasks" %>
+    <ul class="todo-list">
+      <%= turbo_frame_tag id="tasks" do %>
+        <%= render @tasks %>
+        <li class="completed">
+          <div class="view">
+            <input class="toggle" type="checkbox" checked="">
+            <label>These are just samples!!!</label>
+            <button class="destroy"></button>
+          </div>
+          <input class="edit" value="asdfasdf">
+        </li>
+      <% end %>
     </ul>
   </section>
   <footer class="footer" style="display: block;">
