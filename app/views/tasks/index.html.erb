@@ -4,11 +4,10 @@
     <%= render partial: "form" %>
   </header>
   <section class="main" style="display: block;">
-    <input class="toggle-all" id="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark all as complete</label>
     <%= turbo_stream_from "tasks" %>
+    <%= render partial: "tasks/complete_all", locals: { all_complete: @all_complete } %>
     <ul class="todo-list">
-      <%= turbo_frame_tag id="tasks" do %>
+      <%= turbo_frame_tag "tasks" do %>
         <%= render @tasks %>
         <li class="completed">
           <div class="view">

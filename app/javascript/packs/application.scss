@@ -1,5 +1,32 @@
 @import "~todomvc-app-css/index";
 
+button.toggle-all {
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 65px;
+  font-size: 0;
+  position: absolute;
+  top: -65px;
+  left: -0;
+
+  &:before {
+    content: '❯';
+    display: inline-block;
+    font-size: 22px;
+    color: #949494;
+    padding: 10px 27px 10px 27px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  &.all-complete:before {
+    color: #484848;
+  }
+}
+
 .todo-list li .toggle button {
   height: 40px;
   width: 40px;

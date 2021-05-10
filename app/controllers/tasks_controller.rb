@@ -3,9 +3,11 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all.order(created_at: :desc)
+    @all_complete = Task.all_complete?
   end
 
   def show
+    @all_complete = Task.all_complete?
   end
 
   def create
