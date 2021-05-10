@@ -36,3 +36,5 @@ yarn-debug.log*
 .yarn-integrity
 
 !.tool-versions
+dump.rdb
+
