@@ -22,18 +22,21 @@ class Task < ApplicationRecord
 
   def prepend_task
     broadcast_prepend_to :tasks
+    replace_clear_complete
     replace_complete_all_tasks
     replace_items_left
   end
 
   def replace_task
     broadcast_replace_to :tasks
+    replace_clear_complete
     replace_complete_all_tasks
     replace_items_left
   end
 
   def remove_task
     broadcast_remove_to :tasks
+    replace_clear_complete
     replace_complete_all_tasks
     replace_items_left
   end
@@ -44,5 +47,9 @@ class Task < ApplicationRecord
 
   def replace_items_left
     Turbo::StreamsChannel.broadcast_replace_to :tasks, target: "items_left", partial: 'tasks/items_left', locals: { incomplete_items_count: Task.incomplete.count }
+  end
+
+  def replace_clear_complete
+    Turbo::StreamsChannel.broadcast_replace_to :tasks, target: "clear_complete", partial: 'tasks/clear_complete', locals: { complete_count: Task.complete.count }
   end
 end

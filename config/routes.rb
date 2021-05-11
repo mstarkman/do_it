@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
     collection do
       resources :complete_all, only: [:create]
+      resources :clear_complete, only: [:create]
     end
   end
   root to: 'tasks#index'

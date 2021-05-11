@@ -34,7 +34,6 @@
       </li>
     </ul>
 
-    <button class="clear-completed">Clear completed</button>
-
+    <%= render partial: "tasks/clear_complete", locals: { complete_count: @complete_count } %>
   </footer>
 </section>

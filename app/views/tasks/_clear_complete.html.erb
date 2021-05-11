@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "clear_complete" do %>
+  <% if complete_count > 0 %>
+    <%= button_to clear_complete_index_path, method: :post, class: "clear-completed" do %>
+      Clear completed
+    <% end %>
+  <% end %>
+<% end %>
