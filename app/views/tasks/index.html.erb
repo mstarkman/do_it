@@ -21,7 +21,7 @@
     </ul>
   </section>
   <footer class="footer" style="display: block;">
-    <span class="todo-count"><strong>3</strong> items left</span>
+    <%= render partial: 'tasks/items_left', locals: { incomplete_items_count: @incomplete_items_count } %>
     <ul class="filters">
       <li>
         <a class="selected" href="#/">All</a>

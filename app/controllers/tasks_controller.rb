@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all.order(created_at: :desc)
     @all_complete = Task.all_complete?
+    @incomplete_items_count = Task.incomplete.count
   end
 
   def show
