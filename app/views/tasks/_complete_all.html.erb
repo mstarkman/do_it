@@ -1,4 +1,4 @@
 <%= turbo_frame_tag "complete_all_tasks" do %>
-  <%= button_to complete_all_index_path, method: :post, class: "toggle-all #{all_complete ? 'all-complete' : ''}" do %>
+  <%= button_to complete_all_index_path(mark_incomplete: all_complete), method: :post, class: "toggle-all #{all_complete ? 'all-complete' : ''}" do %>
   <% end %>
 <% end %>

@@ -3,10 +3,15 @@ class Task < ApplicationRecord
   after_update_commit :replace_task
   after_destroy_commit :remove_task
 
+  scope :complete, ->{ where(complete: true) }
   scope :incomplete, ->{ where(complete: false) }
 
   def self.all_complete?
     Task.count > 0 && self.incomplete.count == 0
+  end
+
+  def uncomplete!
+    update!(complete: false)
   end
 
   def complete!
