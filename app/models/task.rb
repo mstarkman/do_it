@@ -21,21 +21,31 @@ class Task < ApplicationRecord
   private
 
   def prepend_task
-    broadcast_prepend_to :tasks
+    broadcast_prepend_to :tasks_list_all
+    broadcast_prepend_to :tasks_list_active
     replace_clear_complete
     replace_complete_all_tasks
     replace_items_left
   end
 
   def replace_task
-    broadcast_replace_to :tasks
+    broadcast_replace_to :tasks_list_all
+
+    if complete?
+      broadcast_prepend_to :tasks_list_complete
+    else
+      broadcast_prepend_to :tasks_list_active
+    end
+
     replace_clear_complete
     replace_complete_all_tasks
     replace_items_left
   end
 
   def remove_task
-    broadcast_remove_to :tasks
+    broadcast_remove_to :tasks_list_all
+    broadcast_remove_to :tasks_list_active
+    broadcast_remove_to :tasks_list_complete
     replace_clear_complete
     replace_complete_all_tasks
     replace_items_left

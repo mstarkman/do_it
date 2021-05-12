@@ -1,0 +1,40 @@
+<section class="todoapp">
+  <header class="header">
+    <h1>todos</h1>
+    <%= render partial: "tasks/form" %>
+  </header>
+  <section class="main" style="display: block;">
+    <%= turbo_stream_from :tasks %>
+    <%= turbo_stream_from stream_name %>
+    <%= render partial: "tasks/complete_all", locals: { all_complete: all_complete } %>
+    <ul class="todo-list">
+      <%= turbo_frame_tag "tasks" do %>
+        <%= render tasks %>
+        <li class="completed">
+          <div class="view">
+            <input class="toggle" type="checkbox" checked="">
+            <label>These are just samples!!!</label>
+            <button class="destroy"></button>
+          </div>
+          <input class="edit" value="asdfasdf">
+        </li>
+      <% end %>
+    </ul>
+  </section>
+  <footer class="footer" style="display: block;">
+    <%= render partial: 'tasks/items_left', locals: { incomplete_items_count: incomplete_items_count } %>
+    <ul class="filters">
+      <li>
+        <%= link_to "All", root_path, class: "#{stream_name == "tasks_list_all" ? 'selected' : ''}" %>
+      </li>
+      <li>
+        <%= link_to "Active", active_index_path, class: "#{stream_name == "tasks_list_active" ? 'selected' : ''}" %>
+      </li>
+      <li>
+        <%= link_to "Completed", completed_index_path, class: "#{stream_name == "tasks_list_complete" ? 'selected' : ''}" %>
+      </li>
+    </ul>
+
+    <%= render partial: "tasks/clear_complete", locals: { complete_count: complete_count } %>
+  </footer>
+</section>
