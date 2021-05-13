@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.all.order(created_at: :desc)
@@ -16,6 +16,9 @@ class TasksController < ApplicationController
     @task = Task.create!(task_params)
 
     redirect_to root_url
+  end
+
+  def edit
   end
 
   def update

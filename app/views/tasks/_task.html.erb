@@ -1,10 +1,11 @@
 <%= turbo_frame_tag dom_id(task) do %>
   <li class="<%= task.complete? ? 'completed' : 'view' %>">
-    <div class="view">
+    <%= form_with method: :get, url: edit_task_path(task), id: "edit_form_#{dom_id(task)}" do |f| %>
+    <% end %>
+    <div class="view" ondblclick="document.getElementById('<%= "edit_form_#{dom_id(task)}" %>').requestSubmit();">
       <%= button_to task_complete_index_path(task, task: { complete: task.complete? ? '0' : '1' }), method: :post, form_class: "toggle #{task.complete? ? 'complete' : ''}" do %><% end %>
       <label><%= task.body %></label>
       <%= button_to task_path(task), method: :delete, class: "destroy" do %><% end %>
     </div>
-    <input class="edit" value="<%= task.body %>">
   </li>
 <% end %>
